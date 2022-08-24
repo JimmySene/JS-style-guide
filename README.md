@@ -67,7 +67,7 @@ console.log("Le commentaire du dessus me concerne !");
 // anglais, nom correct, camelCase
 let goodTitle = 'Simple JS Style Guide';
 // abréviation facile à comprendre
-let OkMsg = `It's ok !`;
+let okMsg = `It's ok !`;
 // préfix is / has sur les variables booléennes
 let isMajor = true;
 let hasRights = false;
