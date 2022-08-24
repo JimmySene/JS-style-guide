@@ -67,7 +67,7 @@ console.log("Le commentaire du dessus me concerne !");
 // anglais, nom correct, camelCase
 let goodTitle = 'Simple JS Style Guide';
 // abréviation facile à comprendre
-let msg = `It's ok !`;
+let OkMsg = `It's ok !`;
 // préfix is / has sur les variables booléennes
 let isMajor = true;
 let hasRights = false;
@@ -138,6 +138,8 @@ if(age >= 18 && espece === 'humain') {
 
 ## Déclaration des variables
 
+**Déclarer et initialiser les variables au bon moment, et pas forcément au début d'un bloc de code.**
+
 Utiliser les mots clés *let* ou *const*, pas *var*. L'idée est d'éviter la création de variables globales.
 
 ```js
@@ -164,6 +166,7 @@ Grouper toutes les const puis grouper toutes les let.
 // les const d'un côté
 const firstConst = 'Ca changera pas';
 const secondConst = 'Ca non plus...';
+
 // les let de l'autre
 let firstVar = 'Par contre ça oui';
 let secondVar = 'et ça aussi...';
@@ -177,8 +180,6 @@ let a = 'truc';
 let b = a;
 let c = a;
 ```
-
-**Déclarer et initialiser les variables au bon moment, et pas forcément au début d'un bloc de code.**
 
 ## Conditions
 
