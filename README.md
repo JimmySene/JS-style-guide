@@ -6,13 +6,11 @@ Voilà qui pourrait faire naître un débat aussi intense qu'el famoso **Pain au
 
 J'exagère ? Sans doute un peu.
 
-Mais force est de reconnaitre que certaines règles du clean code JS semblent plebiscitées par tous, quand d'autres au contraire semblent parfois se contredires... 🙄
+Mais force est de reconnaître que certaines règles de style JS semblent plébiscitées par tous, quand d'autres au contraire semblent parfois se contredire... 🙄
 
-L'idée de ce guide est de vous aider à y voir plus clair. Je l'ai conçu en ayant à l'esprit de toujours garder l'essentiel, tout en enlevant le superflu pour en faire un guide simple à suivre, notamment pour les débutants. 🙂
+L'idée de ce guide est de vous inciter à appliquer un style de code JavaScript efficace, simple et rapide à mettre en place. Je l'ai conçu en ayant à l'esprit de toujours garder l'essentiel, tout en enlevant le superflu pour éviter qu'il ne devienne trop complexe. Ainsi, même les débutants pourront le comprendre et le mettre en pratique. 🙂
 
-La plupart de ces règles ne sont pas tirées de mon chapeau (que je ne porte pas), mais des deux mastodontes [Google](https://google.github.io/styleguide/jsguide.html) et [AirBnB](https://github.com/airbnb/javascript/blob/master/README.md) ainsi que du fameux ouvrage *Clean code* de *Robert C.Martin*.
-
-Cependant, j'admets aussi l'avoir aggrémenté d'une petite touche personnelle. Ne m'en voulez pas trop... 😏
+La plupart de ces recommandations ne sont pas tirées de mon chapeau (que je ne porte pas), mais des deux mastodontes [Google](https://google.github.io/styleguide/jsguide.html) et [AirBnB](https://github.com/airbnb/javascript/blob/master/README.md) ainsi que du fameux ouvrage *Clean code* de *Robert C.Martin*. Cependant, j'y ai aussi apporté ma petite touche personnelle, ne serait-ce que pour trancher le débat quand il le fallait. 😉
 
 Voici le sommaire :
 
@@ -29,45 +27,60 @@ Voici le sommaire :
 
 ## Commentaires
 
-- Utiliser la syntaxe courte ou longue suivie d'un espace
-- Garder la même syntaxe dans tout le code
-- Mettre de la ponctuation (majuscule au début, point à la fin, virgules éventuelles)
-- Le commentaire doit toujours se situer juste au dessus du code commenté
+Les commentaires doivent :
+
+- être limités au profit d'un code auto-suffisant ;
+- être utiles, clairs et concis ;
+- être ponctués ou non (garder la même logique dans tout le code) ;
+- être placés soit au dessus, soit à droite du code à commenter suivi d'un espace.
+
+Ils peuvent être écrits en syntaxe courte `//` (à privilégier quand c'est possible) ou longue `/* */` :
+
+- en cas de syntaxe courte, mettre un espace après le `//` ;
+- en cas de syntaxe longue, mettre un espace après le `/*` et avant le `*/`.
 
 ```js
-// Ceci est un commentaire sur le premier console.log.
-console.log("Le commentaire du dessus me concerne !");
+// Ceci est une bonne syntaxe de commentaire.
+console.log("Syntaxe courte."); // ceci aussi
 
-/* Ceci est un commentaire sur le deuxième console.log. */
-console.log("Le commentaire du dessus me concerne !");
+/* Ceci également ! Même si dans ce contexte, on privilégiera la syntaxe courte. */
+console.log("Syntaxe multiligne."); /* pareil ici */
+uneFonction(unParam /* en revanche là, on ne peut pas faire autrement */, unDeuxiemeParam);
 ```
 
-En cas de syntaxe multiligne, faire commencer chaque nouvelle ligne par une étoile située juste en dessous de l'étoile précédente suivie d'un espace.
+En cas de commentaire multiligne, privilégier la syntaxe longue en faisant commencer chaque nouvelle ligne par une *, située juste en dessous de la précédente, suivie d'un espace :
 
 ```js
-/* Ceci est
- * encore un commentaire
- * sur le console.log.
+/* 
+ * Ceci est encore
+ * une bonne syntaxe
+ * de commentaire.
  */
-console.log("Le commentaire du dessus me concerne !");
+console.log("Commentaire multiligne.");
+
+// cependant
+// cette syntaxe est également possible
+// même si on priviligiera celle du dessus
+console.log("Un autre commentaire multiligne.");
 ```
 
-**Le code devrait dans l'idéal se suffir à lui-même. Éviter l'abus de commentaires en écrivant du code explicite.**
+Utiliser les commentaires [JSDoc](https://jsdoc.app/) pour les déclarations de fonction, ainsi que des attributs et méthodes de classe.
 
 ## Nommage des variables, fonctions...
 
-- Privilégier l'anglais (sauf si vous voulez jouer au rebelle patriote)
-- Casing : **camelCase** (ça c'est non négociable)
-- Noms clairs, il faut éviter les abréviations ambiguës et les noms trops longs  
-- Les variables booléennes devraient être préfixées par un *is* ou un *has*
-- Les fonctions devraient être préfixées par un verbe
-- Garder un vocabulaire cohérent dans tout le code
+Le nommage des différents éléments du code doit :
+
+- utiliser une même langue, idéalement l'anglais (sauf si vous voulez jouer au rebelle patriote) ;
+- utiliser le camelCase (variables, propriétés, méthodes) et PascalCase (classes) ;
+- être clair et concis, il faut éviter les abréviations ambiguës et les noms trops longs ;  
+- être préfixés par un *is* ou un *has* si variables ou fonctions booléennes ;
+- être préfixés par un verbe d'action si fonctions (get, add, remove, set...).
 
 ```js
 // anglais, nom correct, camelCase
-let goodTitle = 'Simple JS Style Guide';
+let goodTitle = "Simple JS Style Guide";
 // abréviation facile à comprendre
-let okMsg = `It's ok !`;
+let okMsg = "It's ok !";
 // préfix is / has sur les variables booléennes
 let isMajor = true;
 let hasRights = false;
@@ -84,59 +97,67 @@ function getBadJokes() {
 
 ## Chaînes de caractères
 
-Utiliser les apostrophes plutôt que les guillemets.
+Lorsqu'on écrit une chaine de caractère, on doit :
+
+- utiliser les apostrophes ('') ou les guillemets (""), puis s'y tenir dans tout le code ; 
+- éviter les échappements et les concaténations en utilisant les backticks (``) ;
+- lors de l'utilisation des backticks, ne pas mettre d'espaces avant ni après les accolades.
 
 ```js
-const aGoodString = 'Une chaine qui a du caractère...'; // pas "Une chaine qui a du caractère..."
-```
-
-Cependant, lorsqu'il y a des apostrophes dans la chaîne ou qu'il y a besoin de passer des lignes il faut privilégier l'utilisation des backticks (littéraux de gabarits). 
-Cela permet d'éviter d'avoir recours à l'échappement ou la concaténation.
-
-```js
+// guillemets (ma préférence personnelle car il y a beaucoup d'apostrophes dans les phrases en français)
+const aGoodString = "Une chaine qui a du caractère...";
+// apostrophes (on les privilégie souvent quand on inclus des balises HTML avec attributs qui nécessitent l'usage des guillemets)
+const anotherGoodString = 'Elle est pas mal celle là !';
+// backticks (permet d'éviter l'échappement des apostrophes / guillemets et la concaténation due au multiligne ou à l'interpolation de variables / fonctions)
+const laughEmoji = "🤣";
 const hardToSay = `Essaie de prononcer ça correctement : 
-"Les chaussettes de l'archiduchesse sont-elles sèches ? Archi-sèches !"`;
-```
-
-La concaténation est également évitée lorsqu'on veut y inclure des variables ou des appels de fonction.
-Pas d'espaces entre les accolades et l'expression.
-
-```js
-const superLanguage = 'JavaScript';
-const superString = `Ma super chaine en ${langageName} !`; // pas ${ langageName }
+"Les chaussettes de l'archiduchesse sont-elles sèches ? Archi-sèches !" ${laughEmoji}`; // et pas ${ laughEmoji }
 ```
 
 ## Instructions et blocs de code (fonctions, conditions, boucles...)
 
-- Point-virgule à la fin de chaque instruction.
-- Une instruction par ligne dans un bloc de code.
-- Indentation des instructions dans un bloc : 2 espaces.  
-- Privilégier la syntaxe étendue à la syntaxe sur une seule ligne lorsque les {} sont obligatoires.  
-- Faire débuter le bloc de code sur la première ligne. Finir le bloc de code sur une nouvelle ligne.  
-- Pas d'espace entre le nom d'une fonction / le mot clef if / while / for et la paire de parenthèses.  
-- Pas d'espace entre la paire de parenthèses et ce qu'il y a dedans. Espace entre les paramètres.  
-- Ligne vide en dessous du bloc de code.  
+Voici quelques règles générales concernant les blocs de code `{}` :
+
+- faire débuter le bloc de code sur la ligne du mot clé utilisé ;
+- écrire son contenu sur une ou plusieurs nouvelles lignes ;
+- finir le bloc de code sur une nouvelle ligne ;  
+- mettre un espace après chaque mot clé ;  
+- mettre un espace entre `)` et `{` ;
+- ne pas mettre d'espace entre les parenthèses et leur contenu `(...)` ;  
+- mettre une ligne vide en dessous du bloc de code.
+
+Ainsi que leur contenu :
+
+- point-virgule à la fin de chaque instruction ;
+- pas d'espace entre l'instruction et le point-virgule ;
+- une seule instruction par ligne ;
+- indentation de 2 espaces avant chaque instruction située dans un bloc.
 
 ```js
-// Création de fonction
+// Exemple d'un bloc avec création d'une fonction
 function superFunction(foo, bar) {
-  console.log('Une première instruction !');
-  console.log('Une deuxième instruction !');
+  // les instructions sont sur de nouvelles lignes
+  console.log('Une première instruction !'); // indentation de 2 espaces au début
+  console.log('Une deuxième instruction !'); // et ; de fin
 }
 
-// Utilisation de fonction
-superFunction('machin', 'truc');
-```
+superFunction('machin', 'truc'); // Suite du code en dessous une ligne vide qui le sépare du précédent bloc
 
-Espaces entre les opérateurs et les opérandes.
-
-```js
-if(age >= 18 && espece === 'humain') {
+// Exemple d'un bloc de condition
+if (age >= 18) {
   console.log('Il est majeur !');
 }
+
+// On aurait pu l'écrire sur une ligne car elle ne possède qu'une courte instruction
+if (age >= 18) console.log('Il est majeur !');
 ```
 
 ## Déclaration des variables
+
+Mettre un espace avant et après :
+
+- les opérateurs d'affectation `= += -= *= /= %= **=` ;
+- les opérateurs arithmétiques si il y en a `+ - * / % **`.
 
 **Déclarer et initialiser les variables au bon moment, et pas forcément au début d'un bloc de code.**
 
@@ -172,7 +193,7 @@ let firstVar = 'Par contre ça oui';
 let secondVar = 'et ça aussi...';
 ```
 
-Ne pas utiliser le chainage d'assignations car cela créé des variables globales.
+Ne pas utiliser le chaînage d'assignations car cela créé des variables globales.
 
 ```js
 // ne pas faire let a = b = c = 'truc'; mais plutôt :
@@ -183,50 +204,48 @@ let c = a;
 
 ## Conditions
 
+Mettre un espace avant et après les opérateurs logiques `&& ||` et de comparaison `> < >= <= == != === !==`.
+
+```js
+if (machin > truc && untel <= autre)
+```
+
 Dans le cas d'une condition if / else, mettre le else au même niveau que la fin du bloc if.
 
 ```js
-if(test) {
+if (test != null) {
   // ...
 } else {
   // ...
 }
 ```
 
-Si il n'y a qu'une instruction executée dans une condition et qu'il n'y a pas de else, on peut choisir d'omettre les {} et écrire l'instruction sur une seule ligne.
+Si il n'y a qu'une courte instruction executée dans une condition et qu'il n'y a pas de else, on peut choisir d'omettre les `{}` et écrire l'instruction sur une seule ligne.
 
 ```js
-// ne pas mettre l'instruction sur une nouvelle ligne si vous ne mettez pas les {} et qu'il n'y a pas de else
-if(test) return true;
+// exemple d'une condition sur une seule ligne
+if (test != null) return true;
 ```
 
 Dans une fonction, en cas de return dans un if, il est inutile de mettre le else.
 
 ```js
+const test = "Test validé !";
 // si on entre dans le if on sort de la fonction grâce au return...
-if(test) return true;
+if (test != null) return true;
 
 // ... le code qui suit n'est donc pas lu (sauf si le test est faux bien sûr)
 return false;
 ```
 
-Pour tester une égalité, privilégier l'égalité stricte. De même pour l'inégalité.
-
-```js
-// on privilégie === au == et !== au !=
-if(email === 'labonneadresseemail@gmail.com') {
-  // ...
-}
-```
-
-Utiliser la syntaxe raccourcie si le test porte sur une valeur booléenne.
+Utiliser la syntaxe raccourcie `if (variable)` si le test porte uniquement sur une valeur booléenne.
 
 ```js
 // ici on a une variable booléenne, donc...
 const isMajor = true;
 // ... on privilégie l'utilisation du raccourci au lieu de === true / false
-if(isMajor) {
-  console.log('Il est majeur !');
+if (isMajor) {
+  console.log("Il est majeur !");
 }
 ```
 
@@ -237,23 +256,38 @@ Ne pas utiliser la syntaxe raccourcie si la valeur testée n'est pas une valeur 
 const zero = 0;
 const strVide = '';
 // même si on pourrait les tester avec un if(!zero || !strVide) on va plutôt détailler
-if(zero === 0 || strVide === '') {
-  console.log('C\'est falsy !');
+if (zero === 0 || strVide === '') {
+  console.log("C'est falsy !");
 }
 ```
 
-En cas d'une condition switch formater comme suit :
+Pour tester une égalité ou une inégalité il faut utiliser les opérateurs stricts `===` et `!==`.  
+`==` et `!=` ne sont à utiliser qu'en combinaison avec `null` pour tester si une valeur vaut null ou undefined.
 
 ```js
-switch(cart) {
-  case 'Bananes':
-    console.log('...');
+// on privilégie === au == et !== au !=
+if (email === "labonneadresseemail@gmail.com") {
+  // ...
+}
+
+// on vérifie si email vaut null ou undefined
+if (email == null) { // et pas if(!email), voir la règle ci-dessus
+  // ...
+}
+```
+
+En cas d'une condition switch, formater comme suit :
+
+```js
+switch (cart) {
+  case "Bananes":
+    console.log("...");
     break;
-  case 'Citrons':
-    console.log('...');
+  case "Citrons":
+    console.log("...");
     break;
   default:
-    console.log('...');
+    console.log("...");
 }
 ```
 
@@ -266,7 +300,7 @@ const statut = (age >= 18) ? 'majeur' : 'mineur';
 Utiliser les syntaxes raccourcies en cas de possibilité.
 
 ```js
-// on simule une non réception de données
+// on simule une réception de données manquée
 const data = null; 
 // on applique 5 à la variable limit au cas où data ne possède rien
 const limit = data.limit || 5; // pas const limit = data.limit ? data.limit : 5;
@@ -279,7 +313,7 @@ Nommer ses variables d'incrément *i*, *j* ou *k* dans les boucles est OK (c'est
 L'itérateur dans une boucle for doit être déclarée avec le mot clef *let*.
 
 ```js
-for(let i = 0; i < 10; i++) {
+for (let i = 0; i < 10; i++) {
   // ...
 }
 ```
@@ -289,10 +323,12 @@ for(let i = 0; i < 10; i++) {
 ```js
 const numberOfPotatoes = 10;
 
-for(let i = 0; i < numberOfPotatoes; i++) { // pas i < 10
+for (let i = 0; i < numberOfPotatoes; i++) { // pas i < 10
   // ...
 }
 ```
+
+Privilégier l'utilisation de la boucle *for of* quand il est possible de l'utiliser, notamment lorsqu'il s'agit de parcourir un tableau.
 
 ## Fonctions
 
@@ -341,15 +377,21 @@ appelFonction(options);
 
 ## Tableaux
 
-Utiliser la syntaxe littérale pour créer un tableau.
+
+Utiliser la syntaxe littérale pour créer un tableau sur une ou plusieurs lignes.
 
 ```js
 // pas new Array(length)
+
+// tableau sur plusieurs lignes
 const array = [
   'elem1',
-  'elem2',
-  // ...
-]
+  'elem2', // , sur le dernier élément
+  // ...,
+];
+
+// tableau sur une seule ligne
+const anotherArray = ['elem1', 'elem2', 'elem3'];
 ```
 
 Utiliser la méthode *push()* pour insérer un élément dans un tableau.
@@ -357,14 +399,14 @@ Utiliser la méthode *push()* pour insérer un élément dans un tableau.
 ```js
 const array = [
   'elem1',
-  'elem2'
+  'elem2',
 ];
 // pas array[2] = 'elem3'
 array.push('elem3');
 ```
 
-Pour combiner plusieurs tableaux en un seul, utiliser l'opérateur spread.
-Pas d'espace après l'opérateur.
+Pour combiner plusieurs tableaux en un seul, utiliser l'opérateur spread `...`.  
+Pas d'espace avant ni après l'opérateur.
 
 ```js
 const cats = ['chat', 'tigre', 'lion'];
@@ -377,18 +419,23 @@ const animals = [...cats, ...dogs];
 
 ### Objets littéraux
 
-Utiliser la syntaxe littérale pour créer un objet.
+Utiliser la syntaxe littérale pour créer un objet sur une ou plusieurs lignes.
 
 ```js
 // pas new Object()
+
+// objet littéral sur plusieurs lignes
 const obj = { 
   prop: 'valeur',
-  prop2: 'valeur',
+  prop2: 'valeur', // , sur le dernier élément
   // ...
 }
+
+// objet littéral sur une ligne
+const anotherObj = {prop: 'valeur', prop2: 'valeur'}
 ```
 
-La déclaration des méthodes doit se faire avec le mot clef *function*.
+La déclaration des méthodes doit se faire avec le mot clef *function*.  
 Il ne faut pas utiliser la syntaxe fléchée.
 
 ```js
