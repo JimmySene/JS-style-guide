@@ -137,19 +137,19 @@ Ainsi que leur contenu :
 // Exemple d'un bloc avec création d'une fonction
 function superFunction(foo, bar) {
   // les instructions sont sur de nouvelles lignes
-  console.log('Une première instruction !'); // indentation de 2 espaces au début
-  console.log('Une deuxième instruction !'); // et ; de fin
+  console.log("Une première instruction !"); // indentation de 2 espaces au début
+  console.log("Une deuxième instruction !"); // et ; de fin
 }
 
-superFunction('machin', 'truc'); // Suite du code en dessous une ligne vide qui le sépare du précédent bloc
+superFunction("machin", "truc"); // Suite du code en dessous une ligne vide qui le sépare du précédent bloc
 
 // Exemple d'un bloc de condition
 if (age >= 18) {
-  console.log('Il est majeur !');
+  console.log("Il est majeur !");
 }
 
 // On aurait pu l'écrire sur une ligne car elle ne possède qu'une courte instruction
-if (age >= 18) console.log('Il est majeur !');
+if (age >= 18) console.log("Il est majeur !");
 ```
 
 ## Déclaration des variables
@@ -169,7 +169,7 @@ let score = 40;
 score += 2;
 
 // utiliser const si la valeur reste fixe
-const gameName = 'Super jeu';
+const gameName = "Super jeu";
 ```
 
 Lorsqu'on veut déclarer plusieurs variables il faut répéter le mot clef, ligne par ligne.
@@ -185,19 +185,19 @@ Grouper toutes les const puis grouper toutes les let.
 
 ```js
 // les const d'un côté
-const firstConst = 'Ca changera pas';
-const secondConst = 'Ca non plus...';
+const firstConst = "Ca changera pas";
+const secondConst = "Ca non plus...";
 
 // les let de l'autre
-let firstVar = 'Par contre ça oui';
-let secondVar = 'et ça aussi...';
+let firstVar = "Par contre ça oui";
+let secondVar = "et ça aussi...";
 ```
 
 Ne pas utiliser le chaînage d'assignations car cela créé des variables globales.
 
 ```js
 // ne pas faire let a = b = c = 'truc'; mais plutôt :
-let a = 'truc';
+let a = "truc";
 let b = a;
 let c = a;
 ```
@@ -294,16 +294,17 @@ switch (cart) {
 Les ternaires doivent être écrites sur une seule ligne et ne doivent pas être imbriquées.
 
 ```js
-const statut = (age >= 18) ? 'majeur' : 'mineur';
+const statut = (age >= 18) ? "majeur" : "mineur";
 ```
 
 Utiliser les syntaxes raccourcies en cas de possibilité.
 
 ```js
-// on simule une réception de données manquée
-const data = null; 
-// on applique 5 à la variable limit au cas où data ne possède rien
-const limit = data.limit || 5; // pas const limit = data.limit ? data.limit : 5;
+const data = {}; 
+// on créé un message si data ne le possède pas
+const msg = data.msg ?? "Nada, Walou, Que'tchi"; // pas const msg = data.msg ? data.msg : 5;
+// ou encore...
+data.msg ??=  "Nada, Walou, Que'tchi";
 ```
 
 ## Boucles
@@ -347,10 +348,10 @@ const aGoodFunction = (str) => {
 
 ```
 
-De même pour les fonctions de callback.
+Une fonction fléchée doit être écrite sur une seule ligne si elle ne possède qu'une instruction.
 
 ```js
-const truc = array.find((elem) => elem === 'surprise');
+const truc = array.find((elem) => elem === "surprise"); // pas function() { ... } sur plusieurs lignes
 ```
 
 Il faut éviter de mettre en dur des valeurs en arguments. Il faut d'abord les insérer dans des variables pour les passer ensuite à la fonction.
@@ -375,6 +376,12 @@ const options = {
 appelFonction(options);
 ```
 
+Utiliser l'opérateur *rest* `...` pour récupérer l'ensemble des potentiels arguments plutôt que le mot-clé *arguments*.
+```js
+// arguments n'est pas un tableau et nous aurait compliqué la vie ici
+const concat = (...args) => args.join(" ");
+```
+
 ## Tableaux
 
 
@@ -385,33 +392,33 @@ Utiliser la syntaxe littérale pour créer un tableau sur une ou plusieurs ligne
 
 // tableau sur plusieurs lignes
 const array = [
-  'elem1',
-  'elem2', // , sur le dernier élément
+  "elem1",
+  "elem2", // , sur le dernier élément
   // ...,
 ];
 
 // tableau sur une seule ligne
-const anotherArray = ['elem1', 'elem2', 'elem3'];
+const anotherArray = ["elem1", "elem2", "elem3"];
 ```
 
 Utiliser la méthode *push()* pour insérer un élément dans un tableau.
 
 ```js
 const array = [
-  'elem1',
-  'elem2',
+  "elem1",
+  "elem2",
 ];
 // pas array[2] = 'elem3'
-array.push('elem3');
+array.push("elem3");
 ```
 
-Pour combiner plusieurs tableaux en un seul, utiliser l'opérateur spread `...`.  
+Pour combiner plusieurs tableaux en un seul, utiliser l'opérateur *spread* `...`.  
 Pas d'espace avant ni après l'opérateur.
 
 ```js
-const cats = ['chat', 'tigre', 'lion'];
-const dogs = ['chien', 'renard', 'loup'];
-
+const cats = ["chat", "tigre", "lion"];
+const dogs = ["chien", "renard", "loup"];
+// pas animals = cats.concat(dogs);
 const animals = [...cats, ...dogs];
 ```
 
@@ -426,22 +433,23 @@ Utiliser la syntaxe littérale pour créer un objet sur une ou plusieurs lignes.
 
 // objet littéral sur plusieurs lignes
 const obj = { 
-  prop: 'valeur',
-  prop2: 'valeur', // , sur le dernier élément
+  prop: "valeur",
+  prop2: "valeur", // , sur le dernier élément
   // ...
 }
 
 // objet littéral sur une ligne
-const anotherObj = {prop: 'valeur', prop2: 'valeur'}
+const anotherObj = { prop: "valeur", prop2: "valeur" }
 ```
 
-La déclaration des méthodes doit se faire avec le mot clef *function*.  
+La déclaration des méthodes doit se faire avec la syntaxe raccourcie.  
 Il ne faut pas utiliser la syntaxe fléchée.
 
 ```js
 const obj = {
-  // pas aMethod: () => { ... }
-  aMethod: function() {
+  // pas aMethod: function() { ... }
+  // ni aMethod: () => { ... }
+  aMethod() {
     // ...
   }
 }
@@ -452,8 +460,8 @@ Ne pas mettre de contexte inutile dans le nom des méthodes et des propriétés.
 ```js
 // ici on sait qu'on a une pizza, donc...
 const pizza = {
-  base: 'creme fraiche', // inutile d'écrire pizzaBase...
-  ingredients: ['ananas', 'lardons', 'mozza'] // ni pizzaIngredients...
+  base: "creme fraiche", // inutile d'écrire pizzaBase...
+  ingredients: ["ananas", "lardons", "mozza"] // ni pizzaIngredients...
   // ni pizzaToString
   toString: function() {
     // ...
@@ -468,6 +476,48 @@ Espace entre le nom de la classe et le début du bloc de code.
 
 ```js
 class Pizza {
+  // ...
+}
+```
 
+Les attributs doivent être privés pour respecter le principe d'encapsulation des données.
+
+```js
+class Pizza {
+  #name; // pas name;
+  #base;
+  #ingredients;
+}
+```
+
+La méthode *constructor* doit être présente afin de permettre l'hydratation de l'objet.
+
+```js
+class Pizza {
+  #name;
+  #base;
+  #ingredients;
+  // présence systématique du constructor
+  constructor(name, base, ingredients) {
+    this.#name = name;
+    this.#base = base;
+    this.#ingredients = ingredients;
+  }
+}
+```
+
+Les accesseurs et les mutateurs doivent être écrits avec la nouvelle syntaxe.
+
+```js
+class Pizza {
+  // pas getName() { ... }
+  get name() {
+    return this.#name;
+  }
+  // pas setName(name) { ... }
+  set name(name) {
+    if(typeof name === 'string') this.#name = name;
+    else throw new Error("Le nom de la pizza doit être une chaîne !")
+  }
 }
 ```
