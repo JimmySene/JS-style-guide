@@ -351,7 +351,7 @@ const aGoodFunction = (str) => {
 Une fonction fléchée doit être écrite sur une seule ligne si elle ne possède qu'une instruction.
 
 ```js
-const truc = array.find((elem) => elem === "surprise"); // pas function() { ... } sur plusieurs lignes
+const truc = array.find((elem) => elem === "surprise"); // pas function() { ... }
 ```
 
 Il faut éviter de mettre en dur des valeurs en arguments. Il faut d'abord les insérer dans des variables pour les passer ensuite à la fonction.
